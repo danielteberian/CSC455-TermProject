@@ -1,78 +1,185 @@
-// The main code for the LMS.
+// Main code for the LMS
 
 // Imports
-#include <ncurses.h>
-// TODO #include <"userman.h">
-// TODO #include <"courseman.h">
-// TODO #include <"datpersist.h">
+#include <iostream>
+#include <string>
+// TODO: #include "userman.h"
+// TODO: #include "courseman.h"
+// TODO: #include "datpersist.h"
 
 
+// Display menu
+void show_menu();
+// Get input from user
+int uin();
+// Handler for user-management
+void proc_userman();
+// Handler for course-management
+void proc_courseman();
+// Handler for saved data
+void proc_dat();
 
-// Main function
+
+// Main
 int main()
 {
-	// Initialize ncurses
-	initscr();
-	// Disable line-buffering
-	cbreak();
-	// Disable input echoing
-	noecho();
+	// TODO: Check if there is data
+//	load_dat();
 
+	// Initialize the selection variable, set to 0
+	int selection = 0;
 
-	// Load data from file(s)
-	// TODO: Check if file(s) exist
-	// load_all_data();
-
-	// Create integer to handle user choice. Set value to 0.
-	int choice;
-
-	// Main menu loop
-	while (choice != 4)
+	// Menu prompt loop
+	while (selection != 4)
 	{
-		// Clear screen
-		clear();
-		// Print title
-		mvprint(0, 0, "LEARNING MANAGEMENT SYSTEM");
-		// Print option 1
-		mvprint(2, 0, "1 - USER MANAGEMENT");
-		// Print option 2
-		mvprint(3, 0, "2 - COURSE MANAGEMENT");
-		// Print option 3
-		mvprint(4, 0, "3 - SAVE DATA TO FILE");
-		// Print option 4
-		mvprint(5, 0, "4 - EXIT PROGRAM");
+		// Display menu
+		show_menu();
+		// Assign user input to the value of selection
+		selection = uin();
 
-		// Refresh
-		refresh();
-
-		// Set the value of choice to whatever the user input is
-		choice = getch() - '0';
-
-		// TODO: Implement the functions as they are completed.
+		// Switch, based on user input
+		switch(selection)
+		{
 		// If user selects option 1
-		if (choice == 1)
+		case 1:
 		{
-			// handle_userman();
+			// Process user-management
+			proc_userman();
+			// Break out of the loop
+			break;
 		}
-		else if (choice == 2)
+
+		// If user selects option 2
+		case 2:
 		{
-			// You get it
+			// Process course management
+			proc_courseman();
+			// Break out of the loop
+			break;
 		}
-		// If user enters anything other than a supported value
-		else
+
+		// If user selects option 3
+		case 3:
 		{
-			// Print error message
-			mvprint(9, 0, "[ERR]: INVALID SELECTION");
-			// Refresh
-			refresh();
-			// Await key-press
-			getch();
+			// Process saved data
+			proc_dat();
+			// Break out of the loop
+			break;
+		}
+
+		// If user selects option 4
+		case 4:
+		{
+			// Print message, telling user that the program is terminating
+			std::cout << "[INFO] EXITING." << std::endl;
+			// Break out of the cycle
+			break;
+		}
+
+		// If the user selects anything other than a supported value (default)
+		default:
+		{
+			// Print message to inform user that they entered an invalid ID
+			std::cout << "[ERR] INVALID SELECTION" << std::endl;
 		}
 	}
 
-	// Stop ncurses
-	endwin();
-	// Exit successfully
+	// Assuming it goes correctly, exit with 0.
 	return 0;
 }
-		else
+
+
+// Display menu
+void show_menu()
+{
+	// Title
+	std::cout << "LEARNING MANAGEMENT SYSTEM" << std::endl;
+
+	// Option 1
+	std::cout << "1 - USER MANAGEMENT" << std::endl;
+
+	// Option 2
+	std::cout << "2 - COURSE MANAGEMENT" << std::endl;
+
+	// Option 3
+	std::cout << "3 - SAVE DATA TO FILE" << std::endl;
+
+	// Option 4
+	std::cout << "4 - EXIT" << std::endl;
+
+	// Ask user to select an option
+	std::cout << "CHOOSE FROM THE ABOVE MENU: ";
+}
+
+// Retrieve the user's input
+int uin()
+{
+	// Selection variable
+	int selection;
+	// Set choice to whatever the user inputs
+	std::cin >> selection;
+	// Return the updated value of selection
+	return selection;
+}
+
+
+// Process user-management
+void proc_userman()
+{
+	// Selection variable
+	int selection;
+	// Menu loop
+	do
+	{
+		// Title
+		std::cout << "\nUSER MANAGEMENT" << std::endl;
+
+		// Option 1
+		std::cout << "1 - REGISTER USER" << std::endl;
+
+		// Option 2
+		std::cout << "2 - LIST REGISTERED USERS" << std::endl;
+
+		// Option 3
+		std::cout << "3 - RETURN TO MAIN MENU" << std::endl;
+
+		// Ask user for input
+		std::cout << "CHOOSE FROM THE ABOVE MENU: ";
+
+		// Set the value of selection to the user's input
+		selection = uin();
+
+
+		// User-management menu loop
+		switch(selection)
+		{
+			// If user selects option 1
+			case 1:
+				// Add user
+				// useradd();
+				// Break out of loop
+				break;
+
+			// If user selects option 2
+			case 2:
+				// Show registered users
+				// userls();
+				// Break out of loop
+				break;
+
+			// If user selects option 3
+			case 3:
+				// Break out of loop
+				break;
+
+			// If user enters anything besides a listed entry (default)
+			default:
+				// Show error message
+				std::cout << "[ERR] INVALID SELECTION" << std::endl;
+		}
+	}
+
+	// As long as the user does not choose option 3
+	while (selection != 3);
+}
+}
