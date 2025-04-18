@@ -1,4 +1,5 @@
 // Main code for the LMS
+// Daniel Teberian
 
 // Imports
 #include <iostream>
