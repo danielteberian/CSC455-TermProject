@@ -1,29 +1,31 @@
 # Makefile for the LMS
 # Daniel Teberian
 
-CXX = g++
-CXXFLAGS = -std=c++11 -Wall -g
+CXX := g++
+CXXFLAGS := -std=c++17 -Wall -Wextra -Iinclude
 
 
-SRC = src/main.cpp src/userman.cpp src/userman.h
-OBJ = $(SRC:.cpp=.o)
-TARGET = lms
+SRC := src
+OBJ := obj
+
+TARGET := lms
 
 
-OBJ_DIR = obj
-# If it doesn't exist, make it
-$(shell mkdir -p $(OBJ_DIR))
-OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.cpp=.o)))
+SRCS := $(wildcard $(SRC)/*.cpp)
+OBJS := $(patsubst $(SRC)/%.cpp,$(OBJ)/%.o,$(SRCS))
 
 
 
-$(TARGET): $(OBJ)
-	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJ)
+all:
+	$(TARGET)
 
 
-$(OBJ_DIR)/%.o: %.cpp
+$(TARGET): $(OBJS)
+	$(CXX) $(OBJS) -o $@
+
+
+$(OBJ)/%.o: $(SRC)/%.cpp
+	@mkdir -p $(OBJ)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 
-clean:
-	rm -f $(OBJ_DIR) $(TARGET)
