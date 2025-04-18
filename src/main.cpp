@@ -28,15 +28,100 @@ void proc_dat();
 int main()
 {
 	// Check for the data directory
+	if (dir_exists(data_dir))
+	{
+		// Tell user
+		std::cout << "[INFO] FOUND DATA DIRECTORY.\n";
+	}
+	// If not found
+	else
+	{
+		// Tell user
+		std::cout << "[INFO] DATA DIRECTORY NOT FOUND.\n";
+
+		// Try to create the directory
+		try
+		{
+			return std::filesystem::create_directories(data_dir);
+		}
+
+		// If LMS cannot create the directory
+		catch (const std::filesystem::filesystem_error& err)
+		{
+			// Print error message
+			std::cerr << "[ERR] FILESYSTEM ERROR: " << err.what() << "\n";
+			// Return false
+			return false;
+		}
+	}
+
 	// Check for the administrators data file
+	if (file_exists(admin_data))
+	{
+		// Tell the user
+		std::cout << "[INFO] ADMINISTRATOR DATA FILE FOUND.\n";
+	}
+	// If the file is not found
+	else
+	{
+		// Tell the user
+		std::cout << "[INFO] ADMINISTRATOR DATA FILE NOT FOUND.\n";
+		// Try to create the file
+		std::ofstream ofs(admin_data);
+		// Return true if the file was created
+		return ofs.good();
+	}
+
 	// Check for the assignments data file
+	if (file_exists(assignments_data))
+	{
+		// Tell the user
+		std::cout << "[INFO] ASSIGNMENT DATA FILE FOUND.\n";
+	}
+	// If the file is not found
+	else
+	{
+		// Tell the user
+		std::cout << "[INFO] ASSIGNMENT DATA FILE NOT FOUND.\n";
+		// Try to create the file
+		std::ofstream ofs(assignments_data);
+		// Return true if the file was created
+		return ofs.good();
+	}
+
 	// Check for the courses data file
+	if (file_exists(courses_data))
+	{
+		// Tell the user
+		std::cout << "[INFO] COURSES DATA FILE FOUND.\n";
+	}
+	// If the file was not found
+	else
+	{
+		// Tell the user
+		std::cout << "[INFO] COURSES DATA FILE NOT FOUND.\n";
+		// Try to create the file
+		std::ofstream ofs(courses_data);
+		// Return true if the file was created
+		return ofs.good();
+	}
+
 	// Check for the students data file
-
-
-
-	// TODO: Check if there is data
-//	load_dat();
+	if (file_exists(students_data))
+	{
+		// Tell the user
+		std::cout << "[INFO] STUDENT DATA FILE FOUND.\n";
+	}
+	// If the file is not found
+	else
+	{
+		// Tell the user
+		std::cout << "[INFO] STUDENT DATA FILE NOT FOUND.\n";
+		// Try to create the file
+		std::ofstream ofs(students_data);
+		// Return tru eif the file was created
+		return ofs.good();
+	}
 
 	// Initialize the selection variable, set to 0
 	int selection = 0;
@@ -194,4 +279,5 @@ void proc_userman()
 	// As long as the user does not choose option 3
 	while (selection != 3);
 }
+
 }
