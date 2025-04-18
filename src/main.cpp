@@ -185,7 +185,7 @@ int main()
 	return 0;
 }
 
-
+}
 // Display menu
 void show_menu()
 {
@@ -278,6 +278,4 @@ void proc_userman()
 
 	// As long as the user does not choose option 3
 	while (selection != 3);
-}
-
 }
