@@ -2,11 +2,14 @@
 // Daniel Teberian
 
 // Imports
+#include <filesystem>
+#include <fstream>
 #include <iostream>
 #include <string>
 // TODO: #include "userman.h"
 // TODO: #include "courseman.h"
 // TODO: #include "datpersist.h"
+#include "fn.h"
 
 
 // Display menu
@@ -24,6 +27,14 @@ void proc_dat();
 // Main
 int main()
 {
+	// Check for the data directory
+	// Check for the administrators data file
+	// Check for the assignments data file
+	// Check for the courses data file
+	// Check for the students data file
+
+
+
 	// TODO: Check if there is data
 //	load_dat();
 

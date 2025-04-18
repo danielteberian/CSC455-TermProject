@@ -47,11 +47,23 @@ struct User
 
 
 // Vector that is used to store users and their information
-std::vector<User> users;
+extern std::vector<User> users;
 
-// Register user
+
+// Function declarations
+
+/*
+	Role: Register user
+	Parameter: None
+	Returns: Void
+*/
 void ureg();
-// View users
+
+/*
+	Role: View existing users
+	Parameter: None
+	Returns: Void
+*/
 void uview();
 
 
