@@ -67,4 +67,10 @@ void ureg();
 void uview();
 
 
+bool validate_username(const std::string& username, UserRole role);
+bool validate_name(const std::string& name);
+bool validate_dob(const std::string& dob);
+bool unique_username(const std::string& username);
+
+
 #endif

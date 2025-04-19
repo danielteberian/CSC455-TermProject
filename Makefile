@@ -8,16 +8,15 @@ CXXFLAGS := -std=c++17 -Wall -Wextra -Iinclude
 SRC := src
 OBJ := obj
 
-TARGET := lms
-
 
 SRCS := $(wildcard $(SRC)/*.cpp)
 OBJS := $(patsubst $(SRC)/%.cpp,$(OBJ)/%.o,$(SRCS))
 
 
+TARGET := lms
 
-all:
-	$(TARGET)
+
+all:	$(TARGET)
 
 
 $(TARGET): $(OBJS)
