@@ -1,36 +1,18 @@
-// Header file for the functions used in the LMS
+// Rewritten header for the functions
 // Daniel Teberian
 
 
 #ifndef FN_H
 #define FN_H
 
-// Imports
-#include <filesystem>
-#include <iostream>
-#include <fstream>
 
-// Data directory
-std::filesystem::path data_dir = "data";
+#include <string>
 
-// Administrators data file path
-std::filesystem::path admin_data = data_dir / "administrators.txt";
-
-// Assignments data file path
-std::filesystem::path assignments_data = data_dir / "assignments.txt";
-
-// Courses data file path
-std::filesystem::path courses_data = data_dir / "courses.txt";
-
-// Students data file path
-std::filesystem::path students_data = data_dir / "students.txt";
-
-
-// Check if directory exists
-bool dir_exists(const std::filesystem::path& data_dir);
-
-// Check if file exists
-bool file_exists(const std::filesystem::path& fpath);
-
+bool valid_course(const std::string& id);
+bool alpha(const std::string& str);
+bool valid_admin_username(const std::string& username);
+bool valid_student_username(const std::string& username);
+bool valid_instructor_username(const std::string& username);
+bool valid_username(const std::string& username, char role);
 
 #endif

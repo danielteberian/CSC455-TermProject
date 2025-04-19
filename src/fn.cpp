@@ -1,46 +1,192 @@
-// Functions that are used in different parts of the LMS
+// Rewritten functions for the LMS
 // Daniel Teberian
 
 
-// Imports
-#include <filesystem>
-#include <fstream>
-#include <iostream>
+/* IMPORTS */
+#include "fn.h"
+#include <cctype>
 #include <string>
 
-#include "fn.h"
-
-
-
-// Check if there is a data directory
-bool dir_exists(const std::filesystem::path& data_dir)
+/*
+	Role: Validates course ID
+	Parameter: ID
+	Returns: True if valid, false if invalid
+*/
+bool valid_course(const std::string& id)
 {
-	// If the directory cannot be located
-	if (!std::filesystem::exists(data_dir))
+	if (id.length() != 6)
 	{
-		// Try to create the directory
-		try
-		{
-			return std::filesystem::create_directories(data_dir);
-		}
+		return false;
+	}
 
-		// If the directory cannot be created
-		catch (const std::filesystem::filesystem_error& err)
+	for (int i = 0; i < 3; ++i)
+	{
+		if (!isupper(id[i]))
 		{
-			// Error message
-			std::cerr << "[ERR] FILESYSTEM ERROR: " << err.what() << "\n";
-			// Return false
 			return false;
 		}
 	}
 
-	// If the directory is found
-	return std::filesystem::is_directory(data_dir);
+	if (!isdigit(id[3]) || id[3] == '0' || !isdigit(id[4]) || !isdigit(id[5]))
+	{
+		return false;
+	}
+
+	return true;
+}
+
+/*
+	Role: Ensures string only contains alphabetic characters
+	Parameter: str
+	Returns: True if alphabetic, false if it is not
+*/
+bool alpha(const std::string& str)
+{
+	for (char c : str)
+		if (!isalpha(c))
+		{
+			return false;
+		}
+
+	return true;
+}
+
+/*
+	Role: Validates an admin username
+	Parameter: username
+	Returns: True if valid, false if invalid
+*/
+bool valid_admin_username(const std::string& username)
+{
+	if (username.length() < 2 || username[0] != 'A' || !isdigit(username[1]))
+	{
+		return false;
+	}
+
+	for (int i = 2; i < username.length(); i++)
+	{
+		if (!isdigit(username[i]))
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
+/*
+	Role: Validats student username
+	Parameter: username
+	Returns: True if valid, false if invalid
+*/
+bool valid_student_username(const std::string& username)
+{
+	if (username.length() < 2 || username[0] != 'S' || !isdigit(username[1]))
+	{
+		return false;
+	}
+
+	for (int i = 2; i < username.length(); i++)
+	{
+		if (!isdigit(username[i]))
+		{
+			return false;
+		}
+	}
+
+	return true;
 }
 
 
-// Check if the file exists
-bool file_exists(const std::filesystem::path& fpath)
+/*
+	Role: Validates instructor username
+	Parameter: username
+	Returns: True if valid, false if invalid
+*/
+bool valid_instructor_username(const std::string& username)
 {
-	return std::filesystem::exists(fpath) && std::filesystem::is_regular_file(fpath);
+	if (username.length() < 2  || username[0] != 'I' || !isdigit(username[1]))
+	{
+		return false;
+	}
+
+	for (int i = 2; i < username.length(); i++)
+	{
+		if (!isdigit(username[i]))
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
+
+
+/*
+	Role: Validate user's role
+	Parameter: username, role
+	Returns: True if valid, false if invalid
+*/
+bool valid_username(const std::string& username, char role)
+{
+	if (username.length() < 10)
+	{
+		return false;
+	}
+
+	switch (role)
+	{
+		case 'A':
+			if (!valid_admin_username(username))
+			{
+				return false;
+			}
+
+			break;
+
+		case 'S':
+			if (!valid_student_username(username))
+			{
+				return false;
+			}
+
+			break;
+
+		case 'I':
+			if (!valid_instructor_username(username))
+			{
+				return false;
+			}
+
+			break;
+
+		default:
+			return false;
+	}
+
+
+	int digit_count = 0;
+
+	for (int i = 1; i < username.length(); ++i)
+	{
+		if (!isdigit(username[i]))
+		{
+			return false;
+		}
+
+		digit_count++;
+	}
+
+	if (digit_count > 5)
+	{
+		return false;
+	}
+
+	if (isdigit(username[1]) && username[1] == '0')
+	{
+		return false;
+	}
+
+	return true;
 }
