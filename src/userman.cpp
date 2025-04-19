@@ -7,6 +7,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <filesystem>
 
 #include "userman.h"
 #include "fn.h"
@@ -16,7 +17,7 @@
 // Create an administrator
 void add_admin()
 {
-	std::ofstream file("data/administrators.txt", std::ios::app);
+	std::ofstream std::filesystem::file("data/administrators.txt", std::ios::app);
 	std::string id;
 	std::string username;
 	std::string fname;
@@ -53,15 +54,15 @@ void add_admin()
 	std::cin >> dob;
 
 
-	file << "Admin\n" << id << "\n" << username << "\n" << fname << "\n" << sname << "\n" << dob << "\n\n";
-	file.close();
+	std::filesystem::file << "Admin\n" << id << "\n" << username << "\n" << fname << "\n" << sname << "\n" << dob << "\n\n";
+	std::filesystem::file.close();
 	std::cout << "[INFO] ADDED ADMIN.\n";
 }
 
 
 void add_student()
 {
-	std::ofstream file("data/students.txt", std::ios::app)
+	std::ofstream std::filesystem::file("data/students.txt", std::ios::app)
 	std::string id, username, fname, sname, dob;
 
 
@@ -86,8 +87,8 @@ void add_student()
 	std::cout << "DOB (MM/DD/YYYY): ";
 	std::cin >> dob;
 
-	file << "Student\n" << id << "\n" << username << "\n" << fname << "\n" << sname << "\n" << dob << "\nCourses:\n\n";
-	file.close();
+	std::filesystem::file << "Student\n" << id << "\n" << username << "\n" << fname << "\n" << sname << "\n" << dob << "\nCourses:\n\n";
+	std::filesystem::file.close();
 
 	std::cout << "[INFO] ADDED STUDENT.\n";
 }
@@ -149,7 +150,7 @@ void gradebook()
 	std::cout << "USERNAME: ";
 	std::cin >> username;
 
-	ifstream file("data/students.txt");
+	std::ifstream std::filesystem::file("data/students.txt");
 	std::string line;
 	bool found = false;
 
